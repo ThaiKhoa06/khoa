@@ -66,6 +66,7 @@ int CustomerTable::hashFunc(std::string id)
 void CustomerTable::addCustomer(Customer c)
 {
     int idx = hashFunc(c.getID());
+
     // Kiem tra trung ma
     HashNode *curr = buckets[idx];
     while (curr)
@@ -77,6 +78,7 @@ void CustomerTable::addCustomer(Customer c)
         }
         curr = curr->next;
     }
+
     // Them vao dau danh sach
     HashNode *newNode = new HashNode(c);
     newNode->next = buckets[idx];
@@ -206,7 +208,7 @@ BSTNode *OrderTree::insert(BSTNode *curr, Order o)
     return curr;
 }
 
-// In-order traversal de hien thi don hang tang dan theo ID
+// Hien thi don hang theo thu tu tang dan
 void OrderTree::displayInOrder(BSTNode *curr)
 {
     if (!curr)
@@ -266,7 +268,8 @@ void OrderTree::saveNode(BSTNode *node, std::ostream &out)
 {
     if (!node)
         return;
-    // Ghi Node hien tai (Pre-order traversal de khi doc lai xay dung cay dung cau truc)
+
+    // Ghi Node hien tai
     out << node->data.getOrderID() << "," << node->data.getDate() << ","
         << node->data.getCustomerID() << "," << node->data.getAmount() << "\n";
 
@@ -298,6 +301,7 @@ void OrderTree::loadFromFile(std::string fileName)
     {
         if (line.empty())
             continue;
+
         // Bo qua dong tieu de
         if (firstLine)
         {
