@@ -14,22 +14,6 @@ void trim(std::string &s)
     s = s.substr(first, (last - first + 1));
 }
 
-// Chuyen doi ngay sang timestamp de so sanh
-long long toTimestamp(std::string date)
-{
-    struct tm t = {0};
-    int y, m, d;
-    if (sscanf(date.c_str(), "%d-%d-%d", &y, &m, &d) != 3)
-    {
-        return 0;
-    }
-    t.tm_year = y - 1900;
-    t.tm_mon = m - 1;
-    t.tm_mday = d;
-    t.tm_isdst = -1;
-    return mktime(&t);
-}
-
 // --- CustomerTable ---
 Customer::Customer(std::string id, std::string n, std::string p)
     : customerID(id), name(n), phone(p) {}
