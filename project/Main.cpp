@@ -13,6 +13,7 @@ void menu()
     cout << "2. Them don hang moi" << endl;
     cout << "3. Tra cuu don hang" << endl;
     cout << "4. Danh sach don hang & Doanh thu" << endl;
+    cout << "5. Xoa don hang" << endl;
     cout << "0. Luu du lieu va Thoat" << endl;
     cout << "----------------------------------------" << endl;
     cout << "Lua chon cua ban: ";
@@ -50,6 +51,7 @@ int main()
             string id, name, phone;
             cout << "Nhap ma KH (VD: KH01): ";
             getline(cin, id);
+            
             // Kiem tra ma KH da ton tai chua
             if (ct.findCustomer(id))
             {
@@ -145,6 +147,17 @@ int main()
             cout << "--------------------------" << endl;
             cout << "TONG DOANH THU: " << ot.getTotalRevenue() << "$" << endl;
             break;
+
+        // Xoa don hang
+        case 5:
+        {
+            int oid;
+            cout << "Nhap ma don hang can xoa: ";
+            cin >> oid;
+            ot.deleteOrder(oid);
+            break;
+        }
+
         // Luu du lieu va Thoat
         case 0:
             ct.saveToFile(custFile);

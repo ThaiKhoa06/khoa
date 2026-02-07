@@ -40,6 +40,8 @@ private:
     void clear(BSTNode *curr);
     void saveNode(BSTNode *node, std::ostream &out);
     double calculateTotal(BSTNode *node);
+    BSTNode* findMin(BSTNode* node);
+    BSTNode* remove(BSTNode* curr, int id, bool &success);
 
 public:
     OrderTree();
@@ -50,6 +52,7 @@ public:
     double getTotalRevenue();
     void saveToFile(std::string fileName);
     void loadFromFile(std::string fileName);
+    void deleteOrder(int id);
 };
 
 #endif

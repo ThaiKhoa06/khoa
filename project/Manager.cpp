@@ -313,3 +313,48 @@ void OrderTree::loadFromFile(std::string fileName)
     }
     in.close();
 }
+
+BSTNode* OrderTree::findMin(BSTNode* node) {
+    while (node && node->left) node = node->left;
+    return node;
+}
+
+BSTNode* OrderTree::remove(BSTNode* curr, int id, bool &success) {
+    // TH1: Khong tim thay
+    if (!curr) return nullptr;
+
+    // Di chuyen trong cay
+    if (id < curr->data.getOrderID()) {
+        curr->left = remove(curr->left, id, success);
+    } else if (id > curr->data.getOrderID()) {
+        curr->right = remove(curr->right, id, success);
+    } else {
+        success = true;
+
+        // TH2: Nút có 1 con
+        if (!curr->left) {
+            BSTNode* temp = curr->right;
+            delete curr;
+            return temp;
+        } else if (!curr->right) {
+            BSTNode* temp = curr->left;
+            delete curr;
+            return temp;
+        }
+
+        // TH3: Nút có 2 con
+        BSTNode* temp = findMin(curr->right); // Tìm nút thế mạng
+        curr->data = temp->data;             // Copy dữ liệu
+        curr->right = remove(curr->right, temp->data.getOrderID(), success); // Xóa nút thế mạng
+    }
+    return curr;
+}
+
+void OrderTree::deleteOrder(int id) {
+    bool success = false;
+    root = remove(root, id, success);
+    if (success)
+        std::cout << "--> Da xoa don hang so " << id << " thanh cong." << std::endl;
+    else
+        std::cout << "--> Loi: Khong tim thay don hang " << id << " de xoa." << std::endl;
+}
